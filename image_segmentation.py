@@ -14,14 +14,15 @@ def segmentate(image):
     horizontal_projection = np.sum(img, axis = 0);
     for col in range(w):  #범위 추정
         if horizontal_projection[col] != 0:
-            if(toggle == False):
+            if toggle == False:
                 toggle = True
                 start_col.append(col)
 
         elif horizontal_projection[col] == 0:
-            if(toggle == True):
+            if toggle == True:
                 toggle = False
                 end_col.append(col)
+
 
     count = len(end_col)
     for i in range(count):
