@@ -17,35 +17,27 @@ def ko_ocr(img):
     #     if l[2]>100 and l[3]<70 : #가로길이
     #         cv2.rectangle(img, (l[0], l[1]), ((l[0]+l[2]-1), (l[1]+l[3]-1)), (0, 255, 0),1)
 
-    # cv2.imshow("test", img)
-    # cv2.waitKey()   
-    # cv2.destroyAllWindows()
-
     for l in detected_location:
-        if l[2]>100 and l[3]<70: #짧은건 제외
+        if l[2]>100 and l[3]<70: #한줄씩
             dst = img[l[1]: (l[1] + l[3]), l[0]: (l[0] + l[2])]
-            segmentated_location = segmentate(dst)
-            cv2.imshow("test", dst)
-            cv2.waitKey()   
-            cv2.destroyAllWindows()
-            for l in segmentated_location:           
+            segmentated_location = segmentate(dst) #글자단위로
+
+            for l in segmentated_location:        
                 # if(l[2] > 30 and l[3] > 30): #한글자만
                     dst2 = dst[l[1]: (l[1] + l[3]), l[0]: (l[0] + l[2])]
                     dst2 = preprocess_syllable(dst2)
-                    # cv2.imshow("test", dst2)
-                    # cv2.waitKey()   
-                    # cv2.destroyAllWindows()
-                   # print(model_apply(dst2), end="")
-
+                    print(model_apply(dst2), end="")
+                    
+                    cv2.imshow("test", dst2)
+                    cv2.waitKey()   
+                    cv2.destroyAllWindows()
+                    
             print("")
                 
 
 def main():
     img_path = r"C:\Users\nidol\Desktop\tesseract\a5.png"
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
-
-    # height, width = img.shape[:2]
-    # img = cv2.resize(img, (int(width*0.5), int(height*0.5)), interpolation=cv2.INTER_AREA)
 
     ko_ocr(img)
 

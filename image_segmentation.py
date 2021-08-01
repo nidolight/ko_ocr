@@ -19,15 +19,17 @@ def segmentate(image):
                 start_col.append(col)
 
         elif horizontal_projection[col] == 0:
-            if toggle == True:
-                toggle = False
-                end_col.append(col)
+            if len(start_col) != 0 and col - start_col[-1] > 33:
+                if toggle == True:
+                    toggle = False
+                    end_col.append(col)
 
 
     count = len(end_col)
     for i in range(count):
         s = start_col.pop(0)
         e = end_col.pop(0)
+        
         window_location.append([s, 0, e-s, h])
 
     return window_location
