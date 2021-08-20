@@ -17,10 +17,10 @@ def load_model():
     return model, list(character)
 
 
-def model_apply(img):
-    img = cv2.resize(img, (32, 32))
+def model_apply(dst):
+    dst = cv2.resize(dst, (32, 32), cv2.INTER_AREA)
     model, idx2char = load_model()
-    x = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    x = cv2.cvtColor(dst, cv2.COLOR_BGR2RGB)
     x = np.array(x, dtype=np.float32)
     x = x.reshape((-1, 32, 32, 3))
     x = x / 255.
