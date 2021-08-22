@@ -4,8 +4,10 @@ from image_preprocessing import * #return img
 from image_detection import detect #return ary
 from image_segmentation import * #return ary
 from model_apply import model_apply
+from text_post_processing import find_word
 
 def ko_ocr(img):
+    word = []
     img = deskew(img) #전처리
     img = preprocess_word(img)
 
@@ -26,19 +28,28 @@ def ko_ocr(img):
                     dst2 = dst[l[1]: (l[1] + l[3]), l[0]: (l[0] + l[2])]
                     dst2 = preprocess_syllable(dst2)
                     dst2 = segmentate_h(dst2)
-                    print(model_apply(dst2), end="")
-
-                    cv2.imshow("test", dst2)
-                    cv2.waitKey()
-                    cv2.destroyAllWindows()
-            print("")
+                    word.append(model_apply(dst2))
+            word.append("\n")
+    
+    return word
 
 
 def main():
-    img_path = r"a1.png"
+    img_path = r"a5.png"
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
+    
+    f = open("word_list.txt", 'w')
+    for word in ko_ocr(img):
+        f.write(word)
+    f.close()
 
-    ko_ocr(img)
+    f = open("word_list.txta", 'r')
+    lines = f.readlines()
+    for line in lines:
+        print(line)
+    f.close()
+
+    
 
 if __name__ == "__main__":
     main()
