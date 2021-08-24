@@ -38,16 +38,26 @@ def main():
     img_path = r"a5.png"
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
     
-    f = open("word_list.txt", 'w')
-    for word in ko_ocr(img):
+    f = open("word_list.txt", 'w', encoding='utf-8')
+    for word in ko_ocr(img): #ocr
         f.write(word)
     f.close()
 
-    f = open("word_list.txta", 'r')
+    f = open("word_list.txt", 'r', encoding='utf-8')
     lines = f.readlines()
     for line in lines:
         print(line)
     f.close()
+
+    word_dic = [] #dic 불러오기
+    f = open("word_dic.txt", 'r', encoding='utf-8')
+    lines = f.readlines()
+    for line in lines:
+        word_dic.append(line)
+    f.close()
+
+    #find_word
+
 
     
 
