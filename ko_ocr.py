@@ -7,7 +7,7 @@ from model_apply import model_apply
 from text_post_processing import find_word
 
 def ko_ocr(img):
-    word = []
+    word_list = []
     img = deskew(img) #전처리
     img = preprocess_word(img)
 
@@ -19,19 +19,21 @@ def ko_ocr(img):
     # cv2.imwrite("Test2.bmp", img)
  
     for l in detected_location:
-        if l[2] > 100 and l[3] < 70: #한줄FF씩c
+        if l[2] > 100 and l[3] < 70: #한줄씩
             dst = img[l[1]: (l[1] + l[3]), l[0]: (l[0] + l[2])]
             segmentated_location = segmentate_w(dst) #글자단위로
             if segmentated_location == False: #숫자인 경우 
                 continue
+            word = ""
             for l in segmentated_location: 
                     dst2 = dst[l[1]: (l[1] + l[3]), l[0]: (l[0] + l[2])]
                     dst2 = preprocess_syllable(dst2)
                     dst2 = segmentate_h(dst2)
-                    word.append(model_apply(dst2))
-            word.append("\n")
+                    word = word + model_apply(dst2)
+            word = word + "\n"
+            word_list.append(word)
     
-    return word
+    return word_list
 
 
 def main():
@@ -40,26 +42,16 @@ def main():
     
     f = open("word_list.txt", 'w', encoding='utf-8')
     for word in ko_ocr(img): #ocr
-        f.write(word)
+        ans = find_word(word)
+        if ans != "null":
+            f.writelines(ans)
     f.close()
 
-    f = open("word_list.txt", 'r', encoding='utf-8')
-    lines = f.readlines()
-    for line in lines:
-        print(line)
-    f.close()
-
-    word_dic = [] #dic 불러오기
-    f = open("word_dic.txt", 'r', encoding='utf-8')
-    lines = f.readlines()
-    for line in lines:
-        word_dic.append(line)
-    f.close()
-
-    #find_word
-
-
-    
+    # f = open("word_list.txt", 'r', encoding='utf-8')
+    # lines = f.readlines()
+    # for line in lines:
+    #     print(line)
+    # f.close()
 
 if __name__ == "__main__":
     main()

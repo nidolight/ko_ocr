@@ -13,7 +13,7 @@ def load_model():
     saved_model = './saved_model/best_loss_0.03_model.h5'
     model = VGG_FeatureExtractor(len(character))
     model.load_weights(saved_model)
-    
+
     return model, list(character)
 
 
@@ -36,4 +36,3 @@ def model_apply(dst):
     #     np.array([most_val, chars]).T, columns=['Prob(%)', 'Pred'])
 
     return chars[0]
-
