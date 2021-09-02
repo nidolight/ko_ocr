@@ -1,10 +1,11 @@
-import cv2
+import cv2, datetime
 from image_deskew import deskew #return img
 from image_preprocessing import * #return img
 from image_detection import detect #return ary
 from image_segmentation import * #return ary
 from model_apply import model_apply
 from text_post_processing import find_word
+
 
 def ko_ocr(img):
     word_list = []
@@ -40,11 +41,11 @@ def main():
     img_path = r"a5.png"
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
     
-    f = open("word_list.txt", 'w', encoding='utf-8')
+    f = open("word_list.txt", 'w', encoding = 'utf-8')
     for word in ko_ocr(img): #ocr
         ans = find_word(word)
-        if ans != "null":
-            f.writelines(ans)
+        if ans[0] != "null":
+            f.write(ans[0]+'='+str(ans[1])+'\n')
     f.close()
 
     # f = open("word_list.txt", 'r', encoding='utf-8')
