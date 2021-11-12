@@ -5,6 +5,8 @@ from jamo import h2j, j2hcj
 from hangul_utils import join_jamos
 from difflib import SequenceMatcher
 import pickle
+ 
+import time
 
 def find_word(text): #단어를 찾고 유통기한을 계산하는 것까지
     word = j2hcj(h2j(text))
@@ -21,12 +23,11 @@ def find_word(text): #단어를 찾고 유통기한을 계산하는 것까지
             ans = key
 
     if ans != "null":
-        ans_val = calc_date(mydict[ans])
-        print(str(tmp) + "% "+ str(join_jamos(str(ans)))+"  time:"+str(ans_val))
+        ans_val = calc_date(mydict[ans]).strftime('%Y-%m-%d %H:%M:%S')
+        # print(str(tmp) + "% "+ str(join_jamos(str(ans)))+"  time:"+str(ans_val))
         ans = join_jamos(str(ans))
     else:
         ans_val = "noData"
-
     return ans, ans_val
 
 def similar(a, b):
@@ -48,5 +49,10 @@ def calc_date(val):
 
 
 if __name__ == "__main__": # 테스트용
-    ans = (find_word("ㅏㄴㅅㅏㄴㅊㅏㅁㅅㅗㄱㅗㄱㅈ"))
-    print(type(ans[1]))
+    start = time.time()
+
+    print(find_word("매일우유"))
+
+    print("time: ", time.time() - start)
+
+

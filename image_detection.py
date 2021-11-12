@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 
 def detect(image):
-    window_location = []
+    window_location = [] 
     rgb = cv2.pyrDown(image)
 
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
