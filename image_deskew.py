@@ -1,4 +1,5 @@
-# 기울기 보정
+#image deskew
+#reference:https://ichi.pro/ko/opencvleul-sayonghayeo-tegseuteu-imijileul-jadong-eulo-giulgi-bojeong-ttogbalo-haneun-bangbeob-176759562404831
 
 import cv2
 

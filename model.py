@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+#reference:https://github.com/junstar92/hangul-syllable-recognition
+
 import tensorflow as tf
 
 def VGG_FeatureExtractor(num_class, input_shape=(32,32,3), output_channel=512):

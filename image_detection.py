@@ -1,4 +1,5 @@
-# 글자영역추출
+# extracting text
+# reference:https://stackoverflow.com/Questions/23506105/extracting-text-opencv
 
 import cv2
 import numpy as np
