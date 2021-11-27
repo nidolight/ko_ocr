@@ -19,14 +19,12 @@ def ocr(img_path):
     return data
 
 def main():
-    host = "192.168.219.106"
+    host = "192.168.219.105"
     port = 8080
 
     server_sock = socket.socket(socket.AF_INET)
     server_sock.bind((host,port))
     server_sock.listen(10)
-
-    idx = 0
 
     def get_bytes_stream(sock, length) :
         buffer = b''

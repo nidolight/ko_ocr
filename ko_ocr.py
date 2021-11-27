@@ -53,7 +53,7 @@ def ko_ocr(img):
 def main():
     start = time.time()
 
-    img_path = r"test1.png"
+    img_path = r"a6.png"
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
 
     f = open("word_list.txt", 'w', encoding = 'utf-8')
